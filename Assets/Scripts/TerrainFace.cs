@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TerrainFace
 {
-    private ShapeGenerator shapeGenerator;
-    readonly Mesh mesh;
-    readonly int resolution;
-    Vector3 localUp;
-    Vector3 axisA;
-    Vector3 axisB;
+    private readonly ShapeGenerator shapeGenerator;
+    private readonly Mesh mesh;
+    private readonly int resolution;
+    private Vector3 localUp;
+    private Vector3 axisA;
+    private Vector3 axisB;
 
     public TerrainFace(ShapeGenerator shapeGenerator, Mesh mesh, int resolution, Vector3 localUp)
     {
@@ -32,9 +30,9 @@ public class TerrainFace
         {
             for (int x = 0; x < resolution; x++)
             {
-                int i = x + y * resolution;
+                int i = x + (y * resolution);
                 Vector2 percent = new Vector2(x, y) / (resolution - 1);
-                Vector3 pointOnCube = localUp + (percent.x - .5f) * 2 * axisA + (percent.y - .5f) * 2 * axisB;
+                Vector3 pointOnCube = localUp + ((percent.x - .5f) * 2 * axisA) + ((percent.y - .5f) * 2 * axisB);
                 Vector3 pointOnSphere = pointOnCube.normalized;
                 vertices[i] = shapeGenerator.CalculatePointOnPlanet(pointOnSphere);
 

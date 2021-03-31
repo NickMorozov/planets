@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class RigidNoiseFilter : INoiseFilter
 {
-    readonly NoiseSettings.RigidNoiseSettings settings;
-    readonly Noise noise = new Noise();
+    private readonly NoiseSettings.RigidNoiseSettings settings;
+    private readonly Noise noise = new Noise();
 
     public RigidNoiseFilter(NoiseSettings.RigidNoiseSettings settings)
     {
@@ -20,7 +19,7 @@ public class RigidNoiseFilter : INoiseFilter
 
         for (int i = 0; i < settings.layers; i++)
         {
-            float v = 1 - Mathf.Abs(noise.Evaluate(point * frequency + settings.center));
+            float v = 1 - Mathf.Abs(noise.Evaluate((point * frequency) + settings.center));
             v *= v;
             v *= weight;
             weight = Mathf.Clamp(v * settings.weightMultiplier, 0, 1);

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SimpleNoiseFilter : INoiseFilter
 {
-    readonly NoiseSettings.SimpleNoiseSettings settings;
-    readonly Noise noise = new Noise();
+    private readonly NoiseSettings.SimpleNoiseSettings settings;
+    private readonly Noise noise = new Noise();
 
     public SimpleNoiseFilter(NoiseSettings.SimpleNoiseSettings settings)
     {
@@ -19,7 +18,7 @@ public class SimpleNoiseFilter : INoiseFilter
 
         for (int i = 0; i < settings.layers; i++)
         {
-            float v = noise.Evaluate(point * frequency + settings.center);
+            float v = noise.Evaluate((point * frequency) + settings.center);
             noiseValue += (v + 1) * .5f * amplitude;
             frequency *= settings.roughness;
             amplitude *= settings.persistence;

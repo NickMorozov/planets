@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ShapeGenerator
 {
-    ShapeSettings settings;
-    INoiseFilter[] noiseFilters;
+    private readonly ShapeSettings settings;
+    private readonly INoiseFilter[] noiseFilters;
 
     public ShapeGenerator(ShapeSettings settings)
     {
@@ -34,7 +33,7 @@ public class ShapeGenerator
         {
             if (settings.noiseLayers[i].enabled)
             {
-                float mask = (settings.noiseLayers[i].useFirstLayerAsMask) ? firstLayerValue : 1;
+                float mask = settings.noiseLayers[i].useFirstLayerAsMask ? firstLayerValue : 1;
                 elevation += noiseFilters[i].Evaluate(pointOnSphere) * mask;
             }
         }

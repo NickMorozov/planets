@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class NoiseFilterFactory
+﻿public class NoiseFilterFactory
 {
     public static INoiseFilter CreateNoiseFilter(NoiseSettings settings)
     {

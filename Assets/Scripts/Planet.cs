@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Planet : MonoBehaviour
@@ -13,12 +11,11 @@ public class Planet : MonoBehaviour
     [HideInInspector]
     public bool colorSettingsFoldout;
     public bool autoUpdate = true;
-
-    ShapeGenerator shapeGenerator;
+    private ShapeGenerator shapeGenerator;
 
     [SerializeField, HideInInspector]
-    MeshFilter[] meshFilters;
-    TerrainFace[] terrainFaces;
+    private MeshFilter[] meshFilters;
+    private TerrainFace[] terrainFaces;
 
     private readonly Vector3[] directions = {
         Vector3.up,
@@ -61,7 +58,7 @@ public class Planet : MonoBehaviour
         GenerateColor();
     }
 
-    void Initialize()
+    private void Initialize()
     {
         shapeGenerator = new ShapeGenerator(shapeSettings);
 
@@ -87,7 +84,7 @@ public class Planet : MonoBehaviour
         }
     }
 
-    void GenerateMesh()
+    private void GenerateMesh()
     {
         foreach (TerrainFace face in terrainFaces)
         {
@@ -95,7 +92,7 @@ public class Planet : MonoBehaviour
         }
     }
 
-    void GenerateColor()
+    private void GenerateColor()
     {
         foreach (MeshFilter meshFilter in meshFilters)
         {
