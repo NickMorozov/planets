@@ -2,13 +2,14 @@
 
 public class ShapeGenerator
 {
-    private readonly ShapeSettings settings;
-    private readonly INoiseFilter[] noiseFilters;
+    private ShapeSettings settings;
+    private INoiseFilter[] noiseFilters;
+    public MinMax elevationMinMax = new MinMax();
 
-    public ShapeGenerator(ShapeSettings settings)
+    public void UpdateSettings(ShapeSettings settings)
     {
         this.settings = settings;
-        noiseFilters = new INoiseFilter[settings.noiseLayers.Length];
+        this.noiseFilters = new INoiseFilter[settings.noiseLayers.Length];
         for (int i = 0; i < noiseFilters.Length; i++)
         {
             noiseFilters[i] = NoiseFilterFactory.CreateNoiseFilter(settings.noiseLayers[i].noiseSettings);
@@ -37,6 +38,9 @@ public class ShapeGenerator
                 elevation += noiseFilters[i].Evaluate(pointOnSphere) * mask;
             }
         }
-        return pointOnSphere * settings.planetRadius * (elevation + 1);
+        elevation = settings.planetRadius * (elevation + 1);
+        elevationMinMax.AddValue(elevation);
+
+        return pointOnSphere * elevation;
     }
 }
