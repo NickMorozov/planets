@@ -43,11 +43,21 @@ public class ColorGenerator
         Color32[] colors = new Color32[texture.width * texture.height];
         int colorIndex = 0;
 
+        // todo default planet color, biomes override it, if set
+        // todo enable disable biomes
         foreach (var biome in settings.biomeColorSettings.biomes)
         {
             for (int i = 0; i < textureResolution; i++)
             {
-                Color32 gradientColor = biome.gradient.Evaluate(i / (textureResolution - 1f));
+                Color32 gradientColor;
+                if (i < textureResolution)
+                {
+                    gradientColor = settings.oceanColor.Evaluate(i / (textureResolution - 1f));
+                }
+                else
+                {
+                    gradientColor = biome.gradient.Evaluate((i - textureResolution) / (textureResolution - 1f));
+                }
                 Color32 tintColor = biome.tint;
                 colors[colorIndex++] = (Color)gradientColor * (1 - biome.tintPercent) + (Color)tintColor * biome.tintPercent;
             }
